@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 def index(req):
@@ -28,3 +28,25 @@ def add(req):
     else:
         return render(req,'add.html')
 
+def edit(req,std):
+    std1={}
+    pos=0
+    for i in l:
+        if i['ID']==std:
+            std1=i
+            pos=l.index(i)
+    if req.method=="POST":
+        name=req.POST['name']
+        age=req.POST['age']
+        mark=req.POST['mark']
+        l[pos]={'nm':name , 'ag':age , 'mrk':mark}
+        return redirect(view)
+    else:   
+         return render(req,'edit.html',{'data':std1})     
+
+def delete(req,ID):
+    for i in l:
+        if i['ID']==ID:
+            l.remove(i)
+            return redirect(view)
+    return render
